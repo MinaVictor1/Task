@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:task/core/managers/nav.dart';
 import 'package:task/screens/modiules/login.dart';
+import 'package:task/screens/modiules/register.dart';
 import 'package:task/screens/widgets/build_full_screen_image.dart';
 import 'package:task/screens/widgets/build_image.dart';
 
@@ -41,7 +42,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
             'Let\'s go right away!',
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
-          onPressed: () => navigateToNextScreen(context, const LoginPage()),
+          onPressed: () => navigateToNextScreen(context, RegisterScreen()),
         ),
       ),
       pages: [
@@ -124,7 +125,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           reverse: true,
         ),
       ],
-      onDone: () => navigateToNextScreen(context, const LoginPage()),
+      onDone: () => navigateToNextScreen(context, RegisterScreen()),
       onSkip: () => navigateToNextScreen(
           context, const LoginPage()), // You can override onSkip callback
       showSkipButton: true,

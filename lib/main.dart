@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/core/controllers/observer.dart';
+import 'package:task/core/controllers/register_cubit/register_cubit.dart';
+import 'package:task/core/managers/values.dart';
 import 'package:task/core/network/local/cache_helper.dart';
 import 'package:task/core/network/remote/dio_helper.dart';
 import 'package:task/core/themes/themes.dart';
@@ -11,6 +13,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized.
   await CacheHelper.init(); // Initialize CacheHelper
   DioHelperStore.init(); //Initialize DioHelperStore
+  token = CacheHelper.getData(key: 'token');
+  nationalId = CacheHelper.getData(key: 'userId');
+  print(token);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness:
@@ -25,11 +30,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "First Task",
-      theme: lightTheme,
-      home: const OnBoardingPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RegisterCubit(),
+        ),
+        // BlocProvider(
+        //   create: (context) => SubjectBloc(),
+        // ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "First Task",
+        theme: lightTheme,
+        home: const OnBoardingPage(),
+      ),
     );
   }
 }
